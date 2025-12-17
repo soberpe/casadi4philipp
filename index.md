@@ -64,7 +64,7 @@ f_val, J_val = f_and_J([1.0, 2.0, 0.5])
 
 ## Beispiel 1: Jacobi-Matrix berechnen
 
-Berechnung der Jacobi-Matrix einer Vektorfunktion $$f: \mathbb{R}^n \to \mathbb{R}^m$$:
+Berechnung der Jacobi-Matrix einer Vektorfunktion $f: \mathbb{R}^n \to \mathbb{R}^m$:
 
 ```python
 import casadi as ca
@@ -101,9 +101,9 @@ f_val, J_val = f_func(x_val)
 ## Beispiel 2: Rekursive Jacobi-Vektor-Produkte
 
 Für deine Anwendung benötigst du oft Ableitungen von Ableitungen. So berechnest du:
-- $$J \cdot v$$ (Richtungsableitung)
-- $$\frac{\partial(J \cdot v)}{\partial x} \cdot v$$ (zweite Ordnung)
-- $$\frac{\partial^2(J \cdot v)}{\partial x^2} \cdot v$$ (dritte Ordnung)
+- $J \cdot v$ (Richtungsableitung)
+- $\frac{\partial(J \cdot v)}{\partial x} \cdot v$ (zweite Ordnung)
+- $\frac{\partial^2(J \cdot v)}{\partial x^2} \cdot v$ (dritte Ordnung)
 
 ```python
 x = ca.SX.sym('x', 5)
@@ -139,9 +139,9 @@ derivatives_func = ca.Function('derivatives',
 
 ## Beispiel 3: Effiziente Forward/Reverse Modes
 
-Für große Probleme ist die Berechnung der vollen Jacobi-Matrix verschwenderisch, wenn du nur $$J \cdot v$$ oder $$v^T \cdot J$$ brauchst.
+Für große Probleme ist die Berechnung der vollen Jacobi-Matrix verschwenderisch, wenn du nur $J \cdot v$ oder $v^T \cdot J$ brauchst.
 
-### Forward Mode (für $$J \cdot v$$)
+### Forward Mode (für $J \cdot v$)
 
 ```python
 n = 100  # Große Eingangsdimension
@@ -157,10 +157,10 @@ Jv = ca.jtimes(f, x, v)  # Forward mode
 ```
 
 **Komplexität:** 
-- Volle Jacobi-Matrix: $$O(m \cdot n)$$
-- Forward mode: $$O(m)$$ (unabhängig von $$n$$!)
+- Volle Jacobi-Matrix: $O(m \cdot n)$
+- Forward mode: $O(m)$ (unabhängig von $n$!)
 
-### Reverse Mode (für $$v^T \cdot J$$)
+### Reverse Mode (für $v^T \cdot J$)
 
 ```python
 # Effizient: v^T * J berechnen ohne volle J zu bilden
@@ -168,8 +168,8 @@ vTJ = ca.jtimes(f, x, v, True)  # Reverse mode (transpose=True)
 ```
 
 **Faustregel:**
-- $$m \ll n$$: Reverse mode verwenden
-- $$m \gg n$$: Forward mode verwenden
+- $m \ll n$: Reverse mode verwenden
+- $m \gg n$: Forward mode verwenden
 - Volle Jacobi-Matrix nötig: `ca.jacobian(f, x)` verwenden
 
 ---
@@ -210,11 +210,11 @@ solution = newton_solver(x0, [])
 
 | Funktion | Zweck | Wann verwenden |
 |----------|-------|----------------|
-| `ca.jacobian(f, x)` | Volle Jacobi-Matrix $$\frac{\partial f}{\partial x}$$ | Volle Matrix benötigt |
-| `ca.jtimes(f, x, v)` | Forward mode $$J \cdot v$$ | $$m \gg n$$ oder Richtungsableitung |
-| `ca.jtimes(f, x, v, True)` | Reverse mode $$v^T \cdot J$$ | $$m \ll n$$ |
-| `ca.gradient(f, x)` | Gradient $$\nabla f$$ (für skalares $$f$$) | Optimierung |
-| `ca.hessian(f, x)` | Hesse-Matrix $$\nabla^2 f$$ | Methoden zweiter Ordnung |
+| `ca.jacobian(f, x)` | Volle Jacobi-Matrix $\frac{\partial f}{\partial x}$ | Volle Matrix benötigt |
+| `ca.jtimes(f, x, v)` | Forward mode $J \cdot v$ | $m \gg n$ oder Richtungsableitung |
+| `ca.jtimes(f, x, v, True)` | Reverse mode $v^T \cdot J$ | $m \ll n$ |
+| `ca.gradient(f, x)` | Gradient $\nabla f$ (für skalares $f$) | Optimierung |
+| `ca.hessian(f, x)` | Hesse-Matrix $\nabla^2 f$ | Methoden zweiter Ordnung |
 
 ### Solver
 
